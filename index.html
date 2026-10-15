@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pollinations Starter</title>
+    <meta
+      name="description"
+      content="Duplicate this Space and get a working Pollinations app your visitors pay for with their own Pollen."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <!-- EDIT ME: branding -->
+      <h1>Pollinations Starter</h1>
+      <div class="topbar-right">
+        <span id="accountLabel" class="pill hidden"></span>
+        <button id="signOutBtn" class="ghost hidden" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Sign in -->
+      <section id="screenSignIn" class="screen">
+        <div class="panel">
+          <h2>Bring your own Pollen</h2>
+          <p>
+            This Space spends your own Pollen, not mine. Sign in to Pollinations
+            and approve a key that is scoped to this app and capped at the budget
+            shown. It expires on its own and you can revoke it any time.
+          </p>
+
+          <button id="startBtn" class="primary" type="button">Sign in with Pollinations</button>
+
+          <div id="deviceStep" class="device hidden">
+            <p class="muted">Open this link and approve the request:</p>
+            <a id="deviceLink" class="devicelink" href="#" target="_blank" rel="noreferrer"></a>
+            <p id="deviceStatus" class="status">Waiting for approval...</p>
+          </div>
+
+          <p id="signInError" class="error hidden"></p>
+        </div>
+
+        <div class="panel small">
+          <h3>Why there is no redirect to configure</h3>
+          <p class="muted">
+            This uses the BYOP device flow, which needs no registered redirect
+            URI. That is what lets the Space keep working after you duplicate it
+            to your own URL.
+          </p>
+        </div>
+      </section>
+
+      <!-- Generator -->
+      <section id="screenApp" class="screen hidden">
+        <div class="panel">
+          <h2>Describe it</h2>
+          <div class="controls">
+            <input
+              id="promptInput"
+              type="text"
+              maxlength="300"
+              placeholder="a paper-cut coastline at dawn, layered depth"
+              autocomplete="off"
+            />
+            <select id="modelSelect"></select>
+            <button id="generateBtn" class="primary" type="button">Generate</button>
+          </div>
+          <div class="examples">
+            <button class="example" type="button">a glass terrarium holding a tiny storm</button>
+            <button class="example" type="button">risograph poster of a night train</button>
+            <button class="example" type="button">moss growing over a circuit board</button>
+          </div>
+
+          <p id="appError" class="error hidden"></p>
+
+          <div class="stage">
+            <img id="resultImage" class="result hidden" alt="Generated result" />
+            <div id="placeholder" class="placeholder">Your image appears here</div>
+            <div id="caption" class="caption hidden"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a href="https://pollinations.ai/?ref=badge" target="_blank" rel="noreferrer">
+        <img
+          src="https://raw.githubusercontent.com/pollinations/pollinations/main/packages/ui/src/brand/badge-made-with.svg"
+          alt="Made with pollinations.ai"
+        />
+      </a>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

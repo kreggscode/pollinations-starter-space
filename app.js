@@ -140,6 +140,49 @@ function enterApp() {
   show("screenApp");
 }
 
+// --- Narration --------------------------------------------------------------
+
+// EDIT ME: the voice that speaks each caption. Both entries must be
+// paid_only=false in the audio model list so visitors never need Paid Pollen.
+const NARRATION = { model: "openai/tts-1", voice: "nova" };
+let demoMode = false;
+let lastCaption = "";
+
+async function narrate() {
+  const btn = $("narrateBtn");
+  const text = lastCaption || $("promptInput").value.trim();
+  if (!text) return;
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Narrating...";
+  try {
+    let url;
+    if (demoMode) {
+      // The preview plays a committed recording and never calls the API.
+      url = "sample-narration.mp3";
+    } else {
+      const res = await fetch(
+        GEN +
+          "/audio/" +
+          encodeURIComponent(text) +
+          "?model=" +
+          NARRATION.model +
+          "&voice=" +
+          NARRATION.voice,
+        { headers: authHeaders() },
+      );
+      if (!res.ok) throw new Error("Narration failed (" + res.status + ").");
+      url = URL.createObjectURL(await res.blob());
+    }
+    await new Audio(url).play();
+  } catch (err) {
+    setError("appError", err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = original;
+  }
+}
+
 // --- Generation -------------------------------------------------------------
 
 function authHeaders() {
@@ -210,6 +253,8 @@ async function generate() {
       $("caption").textContent = caption.trim();
       $("caption").classList.remove("hidden");
     }
+    lastCaption = caption.trim() || prompt;
+    $("narrateBtn").classList.remove("hidden");
   } catch (err) {
     setError("appError", err.message);
   } finally {
@@ -241,6 +286,7 @@ function init() {
     show("screenSignIn");
   });
   $("generateBtn").addEventListener("click", generate);
+  $("narrateBtn").addEventListener("click", narrate);
   $("promptInput").addEventListener("keydown", (e) => {
     if (e.key === "Enter") generate();
   });
@@ -263,12 +309,15 @@ const DEMO = {
 };
 
 function enterDemo() {
+  demoMode = true;
+  lastCaption = DEMO.caption;
   $("promptInput").value = DEMO.prompt;
   $("resultImage").src = "sample.png";
   $("resultImage").classList.remove("hidden");
   $("placeholder").classList.add("hidden");
   $("caption").textContent = DEMO.caption;
   $("caption").classList.remove("hidden");
+  $("narrateBtn").classList.remove("hidden");
   $("accountLabel").textContent = "Preview";
   $("accountLabel").classList.remove("hidden");
   show("screenApp");

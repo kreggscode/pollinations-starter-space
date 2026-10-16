@@ -246,6 +246,17 @@ button {
   line-height: 1.5;
 }
 
+.narrate {
+  margin-top: 10px;
+  padding: 8px 14px;
+  font-size: 13.5px;
+}
+
+.narrate:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 footer {
   padding: 14px;
   display: flex;

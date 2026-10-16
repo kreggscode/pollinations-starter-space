@@ -33,6 +33,14 @@ The **device flow** needs no redirect URI at all:
 That is why this Space works unchanged at any `*.hf.space` URL, including one
 somebody else created ten seconds ago.
 
+## Picture with narration
+
+Every generated image gets a two-sentence caption, and one click speaks it
+aloud with a free text-to-speech model (`openai/tts-1`, `paid_only=false`), so
+the demo is a picture with narration rather than a silent one. The
+pre-sign-in preview (`?demo=1`) plays a committed recording instead, so it
+never calls the API and spends nothing.
+
 ## Make it yours
 
 Everything worth editing is in `app.js`, marked with `EDIT ME`:
@@ -42,6 +50,7 @@ Everything worth editing is in `app.js`, marked with `EDIT ME`:
 | `EDIT ME: models` | Which models the picker offers |
 | `EDIT ME: defaults` | Default size, seed and budget |
 | `EDIT ME: system prompt` | The tone of the text panel |
+| `EDIT ME: narration` | The model and voice that speak the caption |
 | `EDIT ME: branding` | The title and colour in `index.html` |
 
 Replace the generator with whatever you had in mind: the sign-in and the Pollen

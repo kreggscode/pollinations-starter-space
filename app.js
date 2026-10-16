@@ -18,7 +18,7 @@ const DEFAULTS = { model: "flux", width: 1024, height: 1024 };
 // EDIT ME: the models the picker offers.
 const MODELS = [
   { id: "flux", label: "Flux - balanced, cheap" },
-  { id: "turbo", label: "Turbo - fastest" },
+  { id: "tongyi-mai/z-image-turbo", label: "Z-Image Turbo - fastest" },
   { id: "kontext", label: "Kontext - follows wording closely" },
 ];
 
@@ -171,7 +171,7 @@ async function generateCaption(prompt) {
     method: "POST",
     headers: { ...authHeaders(), "Content-Type": "application/json" },
     body: JSON.stringify({
-      model: "nova-fast",
+      model: "openai/gpt-5.4-nano",
       max_tokens: 80,
       messages: [
         { role: "system", content: CAPTION_SYSTEM },

@@ -6,7 +6,7 @@ colorTo: yellow
 sdk: static
 pinned: false
 license: mit
-short_description: Duplicate for a Pollinations app with BYOP sign-in
+short_description: Duplicate to build on pollinations.ai, BYOP sign-in
 ---
 
 # Pollinations Starter
